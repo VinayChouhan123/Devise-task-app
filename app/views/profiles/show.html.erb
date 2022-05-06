@@ -1,0 +1,119 @@
+<center>
+  <div class="container-fluid">
+    <%= image_tag @profile.image.url, class: "rounded-circle" if @profile.image? %>
+    <h1><%= @profile.username %></h1><br>
+    <p>Gender: <%= @profile.gender %></p>
+    <p>Bio: <%= @profile.bio %></p>
+    
+    <% if user_signed_in? %>
+      <% if current_user.id == @profile.user_id %>
+      <%= link_to "Edit", edit_profile_path(@profile), class: "btn btn-primary" %> | 
+      <%= link_to "Delete", profile_path(@profile), class: "btn btn-primary", data: { method: :delete, confirm: "Are you sure?" } %>
+
+      <% end %>
+    <% end %><br><br>
+
+    <% if current_user %>
+      <% if current_user.id == @profile.user_id %>
+    
+      <% else %>
+
+      <% @user = User.find_by(id: Profile.find(params[:id]).user_id) %>
+        <% @rel = @user.followers.find_by(follower: current_user) %>
+        <%= link_to 'Follow', user_relationships_path(Profile.find(params[:id]).user_id), method: :post, class: "btn btn-primary" unless @rel.present? %>
+        
+        <% profile_id = Profile.find(params[:id]) %>
+        <%= link_to 'Unfollow', relationship_path(@rel.id, profile_id), method: :delete, class: "btn btn-primary" if @rel.present? %>
+
+      <% end %>
+    <% end %>
+
+    
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Following:
+
+              <% if user_signed_in? %>
+                <% if current_user.id == @profile.user_id %>
+                  <%= current_user.following.count %>
+                <% end %>
+              <% end %>
+
+            </h5>
+            <p class="card-text">
+              <% if current_user.id == @profile.user.id %>
+                <% current_user.following.each do |f| %>
+                  <%= User.find_by(id: f.followed).username %><br>
+                <% end %>
+              <% end %></p>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Followers:
+
+              <% if user_signed_in? %>
+                <% if current_user.id == @profile.user_id %>
+                  <%= current_user.followers.count %>
+                <% end %>
+              <% end %>
+
+            </h5>
+            <p class="card-text">
+              <% if current_user.id == @profile.user.id %>
+                  <% current_user.followers.each do |f| %>
+                    <%= User.find_by(id: f.follower).username %><br>
+                  <% end %>
+                <% end %>
+
+            </p>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+
+      
+    <%# debugger %> 
+      <div class="card">
+        <div class="card-body">
+      
+          <% @follow = Relationship.where(follower_id: current_user.id) %>
+            <% @follow.each do |f| %>
+              <% if f.followed_id == @profile.user.id %>
+                Posts:
+                <% @profile.user.posts.each do |p| %>
+                  <li>
+                    <%= link_to p.title, post_path(p) %>
+                  </li>
+                <% end %>
+
+              <% elsif current_user.id == @profile.user.id %>
+                Posts:
+                <% @profile.user.posts.each do |p| %>
+                  <li>
+                    <%= link_to p.title, post_path(p) %>
+                  </li>
+
+                <% end %>
+                <% break %>
+              <% end %>
+          <% end %>
+
+        </div>
+
+      </div>
+
+
+
+  </div>
+  <br><br>
+
+
+</center>

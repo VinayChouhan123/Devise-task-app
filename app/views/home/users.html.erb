@@ -1,0 +1,23 @@
+<center><h1>Users List</h1></center> 
+
+<!-- <div class="container-fluid">
+	<%# @users.each do |user| %>
+		<table class="table table-primary">
+			<%# if user.profile.present? %>
+	        <td><%#= link_to user.username, profile_path(user.profile.id) %></td>
+	        <td><button style="float:right;"><%#= link_to "Follow" %></button></td>
+	        <%# end %>
+
+	     </table>
+	<%# end %>
+</div> -->
+
+
+
+<div class="container-fluid">
+	<% @profiles.each do |profile| %>
+		<table class="table table-primary">
+
+	        <td><%= image_tag profile.image.url, class: "rounded-circle max-width: 50%" if profile.image? %><%= link_to profile.username, profile_path(profile.id) %></td>
+	<% end %>
+</div>

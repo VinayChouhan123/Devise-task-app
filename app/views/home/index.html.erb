@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <center>
+    <h1>Hello!! This is Blog App </h1>
+  </center><br><br>
+  
+  
+    <b style="margin-left: 1%;">Posts:</b>
+    <div class="container-fluid">
+      <% @posts.each do |post| %>
+      <table class="table table-primary">
+        <% if post.is_approved == true %>
+         <td><%= link_to post.title, post_path(post) %></td>
+      </table> 
+         <% end %>
+      <% end %><br><br>
+    </div>
+  
+
+
+  <% if user_signed_in? %>
+
+  <% else %>
+  <center>
+     <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary" %> | 
+     <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
+  </center>
+  <% end %><br>
+</div>
+
+
+
+

@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <center>
+    <h1>Welcome <%= current_user.username %></h1><br>
+  </center>
+  <% if user_signed_in? %>
+  Are you admin? <%= current_user.has_role? :admin %><br>
+  Role : <%= current_user.roles.pluck(:name).to_sentence %><br><br>
+  <% end %>
+
+
+  User Profile:
+  <% if current_user.profile.present? %>
+    
+      <%= link_to current_user.profile.username, profile_path(current_user.profile.id), class: "btn btn-primary" %>
+    
+  <% end %><br><br>
+
+
+
+  <% if current_user.roles_name.to_sentence == 'admin' %>
+    Posts:
+    
+    <% @posts.each do |post| %> 
+      <table class="table table-primary">
+        <td><%= link_to post.title, post %></td>
+
+        <% if post.is_approved == false %>
+        <td><button style="float:right;"><%= link_to "Approved", flop_post_path(post.id) %></button></td>
+
+        <% else %>
+          <td><button style="float:right;"><%= link_to "Unapproved", flop_post_path(post.id) %></button></td>
+        <% end %> 
+
+      </table>
+    <% end %>
+    
+
+  <% else %>
+
+    Posts:
+    <ul>
+    <% if current_user.posts.present? %>
+      <% current_user.posts.each do |p| %>
+        <li>
+        <%= link_to p.title, post_path(p) %>
+        </li>
+      <% end %>
+    <% end %>
+    </ul>
+    
+  <% end %><br>
+
+  <center>
+    <%= link_to "Create Profile", new_profile_path(@profile), class: "btn btn-primary" %>  |  
+    <%= link_to "Create Post", new_post_path(@post), class: "btn btn-primary" %>
+  </center><br><br>
+</div>
+

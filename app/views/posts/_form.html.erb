@@ -1,0 +1,22 @@
+<div class="col-lg-6 mx-lg-auto mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <%= form_with model: post do |form| %>
+        <div>
+          <%= form.label :title, class: "mb-2" %><br>
+          <%= form.text_field :title, autofocus: true, class: "form-control form-control-lg" %>
+        </div>
+
+        <div>
+          <%= form.label :description, class: "mb-2" %><br>
+          <%= form.text_area :description, class: "form-control form-control-lg" %><br>
+        </div>
+
+        <div>
+          <%= form.submit class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+ <div class="col-lg-6 mx-lg-auto mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <%= form_with model: @profile, :html =>  { :multipart => true }, local: true do |form| %>
+
+        <div>
+          <%= form.label :profile_picture, class: "mb-2" %><br>
+          <%= form.file_field :image, autofocus: true, class: "form-control form-control-lg" %>
+        </div>
+
+        <div>
+          <%= form.label :username, class: "mb-2" %><br>
+          <%= form.text_field :username, class: "form-control form-control-lg" %>
+        </div>
+
+        <div>
+          <%= form.label :gender, class: "mb-2" %><br>
+          <%= form.text_field :gender, class: "form-control form-control-lg" %><br>
+        </div>
+
+        <div>
+          <%= form.label :bio, class: "mb-2" %><br>
+          <%= form.text_area :bio, class: "form-control form-control-lg" %><br>
+        </div>
+
+        <div>
+          <%= form.submit class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
