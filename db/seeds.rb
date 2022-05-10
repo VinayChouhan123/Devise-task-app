@@ -7,11 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-user = User.create(
-    email: "vinayrajput@gmail.com",
-    username: "vinayrajput",
-    mobile: 4569854789,
-    password: 123456,
-    password_confirmation: 123456
-)
-user.add_role :admin
+user = User.find(3)
+user.remove_role :newuser
