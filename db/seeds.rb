@@ -7,5 +7,3 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-user = User.find(3)
-user.remove_role :newuser
