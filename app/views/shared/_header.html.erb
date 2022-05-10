@@ -10,9 +10,11 @@
           <%= link_to "Home", root_path, class: 'nav-link active' %>
         </li>
 
-        <li class="nav-item">
-          <%= link_to "Dashboard", profiles_path, class: 'nav-link active' %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Dashboard", profiles_path, class: 'nav-link active' %>
+          </li>
+        <% end %>
 
         <li class="nav-item">
           <%= link_to "Users", users_path, class: 'nav-link active' %>
