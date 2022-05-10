@@ -1,8 +1,17 @@
 development:
- database: devise_task_development
+ database: devise_task
  adapter: postgresql
  username: postgres
  password: 12345678
  host: localhost
  pool: 5
  timeout: 5000
+
+
+production:
+ adapter: postgresql
+ encoding: unicode
+ database: devise_task
+ pool: 5
+ username: postgres
+ password: 12345678
