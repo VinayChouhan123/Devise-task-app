@@ -10,7 +10,7 @@
 user = User.create(
     email: "vinayrajput@gmail.com",
     username: "vinayrajput",
-    mobile: 4569854789,
+    mobile: "4569854789",
     password: 123456,
     password_confirmation: 123456
 )
